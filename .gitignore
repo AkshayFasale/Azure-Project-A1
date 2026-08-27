@@ -1,0 +1,23 @@
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+tfplan
+**/*.tfplan
+.terraform.tfstate.lock.info
+
+# Environment-specific variables / secrets
+*.tfvars
+*.tfvars.json
+
+# SSH / credentials
+*.pem
+*.key
+.env
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
