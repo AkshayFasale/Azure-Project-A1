@@ -12,9 +12,9 @@ module "network" {
   nsg_name              = var.nsg_name
   vnet_name             = var.vnet_name
   address_space         = var.address_space
-  public_subnet_name    = "snet-public-dev"
+  public_subnet_name    = var.public_subnet_name
   public_subnet_prefix  = var.public_subnet_prefix
-  private_subnet_name   = "snet-private-dev"
+  private_subnet_name   = var.private_subnet_name
   private_subnet_prefix = var.private_subnet_prefix
   tags                  = local.common_tags
 
