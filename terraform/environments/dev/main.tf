@@ -37,4 +37,4 @@ module "compute" {
   image_offer         = var.image_offer
   image_sku           = var.image_sku
   custom_script       = file("${path.module}/../../../scripts/cloud-init.yaml")
-}# testing CI/CD pipeline
+} # testing CI/CD pipeline
