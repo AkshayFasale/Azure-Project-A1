@@ -29,10 +29,34 @@ jobs:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Write SSH public key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ vars.DEV_SSH_PUBLIC_KEY }}" > ~/.ssh/azureproject_vm.pub
       - run: terraform init
       - run: terraform fmt -check
       - run: terraform validate
       - run: terraform plan -no-color
+    env:
+      TF_VAR_location: ${{ vars.LOCATION }}
+      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_environment: ${{ vars.ENVIRONMENT }}
+      TF_VAR_resource_group_name: ${{ vars.RESOURCE_GROUP_NAME }}
+      TF_VAR_vnet_name: ${{ vars.VNET_NAME }}
+      TF_VAR_nsg_name: ${{ vars.NSG_NAME }}
+      TF_VAR_address_space: ${{ vars.ADDRESS_SPACE }}
+      TF_VAR_public_subnet_name: ${{ vars.PUBLIC_SUBNET_NAME }}
+      TF_VAR_private_subnet_name: ${{ vars.PRIVATE_SUBNET_NAME }}
+      TF_VAR_public_subnet_prefix: ${{ vars.PUBLIC_SUBNET_PREFIX }}
+      TF_VAR_private_subnet_prefix: ${{ vars.PRIVATE_SUBNET_PREFIX }}
+      TF_VAR_admin_ip: ${{ vars.ADMIN_IP }}
+      TF_VAR_vm_name: ${{ vars.VM_NAME }}
+      TF_VAR_vm_size: ${{ vars.VM_SIZE }}
+      TF_VAR_admin_username: ${{ vars.ADMIN_USERNAME }}
+      TF_VAR_ssh_public_key_path: ${{ vars.SSH_PUBLIC_KEY_PATH }}
+      TF_VAR_image_publisher: ${{ vars.IMAGE_PUBLISHER }}
+      TF_VAR_image_offer: ${{ vars.IMAGE_OFFER }}
+      TF_VAR_image_sku: ${{ vars.IMAGE_SKU }}
 
   apply-dev:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -49,8 +73,33 @@ jobs:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Write SSH public key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ vars.DEV_SSH_PUBLIC_KEY }}" > ~/.ssh/azureproject_vm.pub
       - run: terraform init
       - run: terraform apply -auto-approve
+      
+    env:
+      TF_VAR_location: ${{ vars.LOCATION }}
+      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_environment: ${{ vars.ENVIRONMENT }}
+      TF_VAR_resource_group_name: ${{ vars.RESOURCE_GROUP_NAME }}
+      TF_VAR_vnet_name: ${{ vars.VNET_NAME }}
+      TF_VAR_nsg_name: ${{ vars.NSG_NAME }}
+      TF_VAR_address_space: ${{ vars.ADDRESS_SPACE }}
+      TF_VAR_public_subnet_name: ${{ vars.PUBLIC_SUBNET_NAME }}
+      TF_VAR_private_subnet_name: ${{ vars.PRIVATE_SUBNET_NAME }}
+      TF_VAR_public_subnet_prefix: ${{ vars.PUBLIC_SUBNET_PREFIX }}
+      TF_VAR_private_subnet_prefix: ${{ vars.PRIVATE_SUBNET_PREFIX }}
+      TF_VAR_admin_ip: ${{ vars.ADMIN_IP }}
+      TF_VAR_vm_name: ${{ vars.VM_NAME }}
+      TF_VAR_vm_size: ${{ vars.VM_SIZE }}
+      TF_VAR_admin_username: ${{ vars.ADMIN_USERNAME }}
+      TF_VAR_ssh_public_key_path: ${{ vars.SSH_PUBLIC_KEY_PATH }}
+      TF_VAR_image_publisher: ${{ vars.IMAGE_PUBLISHER }}
+      TF_VAR_image_offer: ${{ vars.IMAGE_OFFER }}
+      TF_VAR_image_sku: ${{ vars.IMAGE_SKU }}
 
   apply-prod:
     needs: apply-dev
@@ -68,5 +117,32 @@ jobs:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Write SSH public key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ vars.PROD_SSH_PUBLIC_KEY }}" > ~/.ssh/azureproject_prod_vm.pub
       - run: terraform init
       - run: terraform apply -auto-approve
+    
+    env:
+      TF_VAR_location: ${{ vars.LOCATION }}
+      TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+      TF_VAR_environment: ${{ vars.ENVIRONMENT }}
+      TF_VAR_resource_group_name: ${{ vars.RESOURCE_GROUP_NAME }}
+      TF_VAR_vnet_name: ${{ vars.VNET_NAME }}
+      TF_VAR_nsg_name: ${{ vars.NSG_NAME }}
+      TF_VAR_address_space: ${{ vars.ADDRESS_SPACE }}
+      TF_VAR_public_subnet_name: ${{ vars.PUBLIC_SUBNET_NAME }}
+      TF_VAR_private_subnet_name: ${{ vars.PRIVATE_SUBNET_NAME }}
+      TF_VAR_public_subnet_prefix: ${{ vars.PUBLIC_SUBNET_PREFIX }}
+      TF_VAR_private_subnet_prefix: ${{ vars.PRIVATE_SUBNET_PREFIX }}
+      TF_VAR_admin_ip: ${{ vars.ADMIN_IP }}
+      TF_VAR_vm_name: ${{ vars.VM_NAME }}
+      TF_VAR_vm_size: ${{ vars.VM_SIZE }}
+      TF_VAR_admin_username: ${{ vars.ADMIN_USERNAME }}
+      TF_VAR_ssh_public_key_path: ${{ vars.SSH_PUBLIC_KEY_PATH }}
+      TF_VAR_image_publisher: ${{ vars.IMAGE_PUBLISHER }}
+      TF_VAR_image_offer: ${{ vars.IMAGE_OFFER }}
+      TF_VAR_image_sku: ${{ vars.IMAGE_SKU }}
+  
+
