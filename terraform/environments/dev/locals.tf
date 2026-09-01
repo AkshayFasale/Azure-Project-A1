@@ -4,5 +4,6 @@ locals {
     Environment = var.environment
     ManagedBy   = "Terraform"
     Owner       = "Akshay"
+    test        = "approval-gate-check"
   }
 }
