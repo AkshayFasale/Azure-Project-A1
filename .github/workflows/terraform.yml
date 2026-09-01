@@ -37,6 +37,8 @@ jobs:
       - run: terraform fmt -check
       - run: terraform validate
       - run: terraform plan -no-color
+    timeout-minutes: 10
+    
     env:
       TF_VAR_location: ${{ vars.LOCATION }}
       TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
@@ -79,6 +81,7 @@ jobs:
           echo "${{ vars.DEV_SSH_PUBLIC_KEY }}" > ~/.ssh/azureproject_vm.pub
       - run: terraform init
       - run: terraform apply -auto-approve
+    timeout-minutes: 10
       
     env:
       TF_VAR_location: ${{ vars.LOCATION }}
@@ -123,7 +126,7 @@ jobs:
           echo "${{ vars.PROD_SSH_PUBLIC_KEY }}" > ~/.ssh/azureproject_prod_vm.pub
       - run: terraform init
       - run: terraform apply -auto-approve
-    
+    timeout-minutes: 10
     env:
       TF_VAR_location: ${{ vars.LOCATION }}
       TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
