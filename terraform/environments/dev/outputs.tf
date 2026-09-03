@@ -11,3 +11,7 @@ output "vm_public_ip" {
   description = "Public IP address of the development VM"
   value       = module.compute.public_ip_address
 }
+output "acr_login_server" {
+  description = "Login server of the Azure Container Registry"
+  value       = module.acr.acr_login_server
+}

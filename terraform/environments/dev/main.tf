@@ -38,3 +38,11 @@ module "compute" {
   image_sku           = var.image_sku
   custom_script       = file("${path.module}/../../../scripts/cloud-init.yaml")
 } # testing CI/CD pipeline
+
+module "acr" {
+  source              = "../../modules/acr"
+  acr_name            = var.acr_name
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  tags                = local.common_tags
+}
