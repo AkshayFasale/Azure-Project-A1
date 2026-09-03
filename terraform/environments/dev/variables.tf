@@ -70,3 +70,7 @@ variable "admin_ip" {
   description = "Admin IP address for SSH access"
   type        = string
 }
+variable "acr_name" {
+  description = "Globally unique name for the container registry"
+  type        = string
+}

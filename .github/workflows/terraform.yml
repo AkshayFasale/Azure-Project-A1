@@ -59,6 +59,8 @@ jobs:
       TF_VAR_image_publisher: ${{ vars.IMAGE_PUBLISHER }}
       TF_VAR_image_offer: ${{ vars.IMAGE_OFFER }}
       TF_VAR_image_sku: ${{ vars.IMAGE_SKU }}
+      TF_VAR_acr_name: ${{ vars.ACR_NAME }}
+
 
   apply-dev:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -103,6 +105,7 @@ jobs:
       TF_VAR_image_publisher: ${{ vars.IMAGE_PUBLISHER }}
       TF_VAR_image_offer: ${{ vars.IMAGE_OFFER }}
       TF_VAR_image_sku: ${{ vars.IMAGE_SKU }}
+      TF_VAR_acr_name: ${{ vars.ACR_NAME }}
 
   apply-prod:
     needs: apply-dev
@@ -147,5 +150,6 @@ jobs:
       TF_VAR_image_publisher: ${{ vars.IMAGE_PUBLISHER }}
       TF_VAR_image_offer: ${{ vars.IMAGE_OFFER }}
       TF_VAR_image_sku: ${{ vars.IMAGE_SKU }}
+      TF_VAR_acr_name: ${{ vars.ACR_NAME }}
   
 
